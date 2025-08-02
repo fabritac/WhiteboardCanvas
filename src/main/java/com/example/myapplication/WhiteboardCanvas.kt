@@ -1,6 +1,8 @@
 package com.example.myapplication
 
 import android.util.Log
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
@@ -19,7 +21,7 @@ import kotlin.math.sqrt
 data class DrawStroke(
     val points: List<Offset>,
     val color: Color = Color.Black,
-    val strokeWidth: Float = 8f
+    val strokeWidth: Float = 4f
 ) {
     fun toPath(): Path {
         val path = Path()
@@ -143,7 +145,11 @@ fun WhiteboardCanvas(modifier: Modifier = Modifier) {
             drawPath(
                 path = stroke.toPath(),
                 color = stroke.color,
-                style = Stroke(width = stroke.strokeWidth / scale)
+                style = Stroke(
+                    width = stroke.strokeWidth / scale,
+                    cap = StrokeCap.Round,
+                    join = StrokeJoin.Round
+                )
             )
         }
 
@@ -153,7 +159,11 @@ fun WhiteboardCanvas(modifier: Modifier = Modifier) {
             drawPath(
                 path = currentStroke.toPath(),
                 color = currentStroke.color,
-                style = Stroke(width = currentStroke.strokeWidth / scale)
+                style = Stroke(
+                    width = currentStroke.strokeWidth / scale,
+                    cap = StrokeCap.Round,
+                    join = StrokeJoin.Round
+                )
             )
         }
 
